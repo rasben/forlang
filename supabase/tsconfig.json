@@ -1,7 +1,10 @@
 {
 	"compilerOptions": {
 		"lib": ["es6", "dom"],
-		"allowImportingTsExtensions": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"baseUrl": "\u0000",
+		"paths": {
+			"*.ts": ["*"]
+		}
 	}
 }
