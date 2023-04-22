@@ -4,6 +4,7 @@
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { ProgressBar } from '@skeletonlabs/skeleton';
 
+	// https://icones.js.org/
 	import 'iconify-icon';
 
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
@@ -55,7 +56,7 @@
 					<div class="input-group-shim">
 						<iconify-icon icon="heroicons:key-solid" />
 					</div>
-					<input type="password" name="secret" placeholder="Kodeord" />
+					<input type="password" name="secret" placeholder="Kodeord" value={form?.secret} />
 				</div>
 			</label>
 
@@ -72,7 +73,17 @@
 		<ProgressBar value={undefined} />
 	{/if}
 
-	{form?.fail_reason ?? ''}
+	{#if form?.fail_reason}
+		<aside class="alert my-6 variant-filled">
+			<div>😭</div>
+
+			<div class="alert-message">
+				<p>{form?.fail_reason}</p>
+			</div>
+
+			<div>😭</div>
+		</aside>
+	{/if}
 
 	{#if form?.success}
 		<article class="card my-6 p-2">
