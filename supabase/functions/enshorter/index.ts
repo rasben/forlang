@@ -17,7 +17,7 @@ const supabase = createClient(
 );
 
 interface ChatbotMessage {
-	role: "system" | "assistant" | "user";
+	role: 'system' | 'assistant' | 'user';
 	content: string;
 }
 
@@ -45,6 +45,7 @@ async function getAiSummary(pageContent: PageContent): Promise<string | boolean>
 	const openAIAPIKey = Deno.env.get('OPENAI_API_KEY');
 
 	if (!openAIAPIKey) {
+		console.error('Missing OpenAI key.');
 		return false;
 	}
 
@@ -74,7 +75,15 @@ async function getAiSummary(pageContent: PageContent): Promise<string | boolean>
 		messages: prompt_messages
 	});
 
-	const choice = response?.choices[0];
+	const choices = response?.choices;
+
+	if (!choices?.length) {
+		console.error('openAI did not provide any choices.');
+		console.log(response);
+		return false;
+	}
+
+	const choice = choices[0];
 	let responseText = choice?.message?.content;
 
 	if (!responseText) {

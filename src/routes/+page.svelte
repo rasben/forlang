@@ -1,29 +1,44 @@
 <script>
+	import { enhance } from '$app/forms';
+
 	import { LightSwitch } from '@skeletonlabs/skeleton';
+	import { ProgressBar } from '@skeletonlabs/skeleton';
+
 	import 'iconify-icon';
 
-	// Your selected Skeleton theme:
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-
-	// This contains the bulk of Skeletons required styles:
 	import '@skeletonlabs/skeleton/styles/all.css';
-
-	// Finally, your application's global stylesheet (sometimes labeled 'app.css')
 	import '../app.postcss';
 
 	export let form;
+
+	let loading = false;
+
+	async function handleSubmit(event) {
+		event.preventDefault();
+		loading = true;
+
+		const formData = new FormData(event.target);
+
+		await fetch('/', {
+			method: 'POST',
+			body: formData
+		});
+
+		loading = false;
+	}
 </script>
 
 <div class="absolute right-5 top-5">
 	<LightSwitch />
 </div>
 
-<div class="container mx-auto max-w-lg my-16">
+<div class="container mx-auto max-w-lg py-6 px-12 variant-soft-surface">
 	<h1 class="my-6">
 		<strong>Forlang mindre</strong> af for lange websites
 	</h1>
 
-	<form method="POST" class="m-6">
+	<form method="POST" class="my-6" use:enhance on:submit|preventDefault={handleSubmit}>
 		<div class=" grid grid-cols-1 gap-4">
 			<label class="label">
 				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
@@ -43,13 +58,18 @@
 				</div>
 			</label>
 
-			<button class="btn variant-filled-secondary">
+			<button class="btn variant-filled-secondary" disabled={loading} type="submit">
 				<iconify-icon icon="heroicons:bolt-20-solid" />
 
 				<span>Læs den for mig!</span>
 			</button>
 		</div>
 	</form>
+</div>
+<div class="container mx-auto max-w-lg">
+	{#if loading}
+		<ProgressBar value={undefined} />
+	{/if}
 
 	{form?.fail_reason ?? ''}
 
@@ -69,9 +89,9 @@
 				<hr class="opacity-50" />
 			</section>
 			<footer class="m-6">
-				<button class="btn variant-ghost btn-sm">
-					Læs den fulde, rene artikel ({form?.pageContent?.length} tegn)
-				</button>
+				<a class="btn variant-ghost btn-sm" href={form?.pageContent.url}>
+					Læs den fulde artikel ({form?.pageContent?.length} tegn)
+				</a>
 			</footer>
 		</article>
 	{/if}

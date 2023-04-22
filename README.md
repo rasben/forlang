@@ -46,6 +46,7 @@ Using the output of `reader` we use AI summarization tools to create a summary, 
 - [SvelteKit](https://kit.svelte.dev/)
 - [Skeleton.dev](https://www.skeleton.dev/) - a UI kit, built ontop of **Svelte** and **TailwindCSS**
 - [Vercel](https://vercel.com/) for hosting the forlang.dk
+- [ViteJS](https://vitejs.dev/) - local development setup
 - [GitHub](https://media2.giphy.com/media/Ui84ztoe6yVEBZhvnt/giphy.gif?cid=ecf05e475p8dpoklcvda1achqi76fs34sflfzaokidp7eryp&rid=giphy.gif&ct=g) for code-hosting and basic tests using GitHub actions.
 
 ## More docs
