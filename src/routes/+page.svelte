@@ -35,7 +35,8 @@
 
 <div class="container mx-auto max-w-lg py-6 px-12 variant-soft-surface">
 	<h1 class="my-6">
-		<strong>Forlang mindre</strong> af for lange websites
+		<strong class="font-extrabold">Forlang mindre</strong>
+		<span class="font-normal">af for lange websites</span>
 	</h1>
 
 	<form method="POST" class="my-6" use:enhance on:submit|preventDefault={handleSubmit}>
