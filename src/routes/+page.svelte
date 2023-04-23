@@ -56,7 +56,7 @@
 					<div class="input-group-shim">
 						<iconify-icon icon="heroicons:key-solid" />
 					</div>
-					<input type="password" name="secret" placeholder="Kodeord" value={form?.secret} />
+					<input type="text" name="secret" placeholder="Kodeord" value={form?.secret ?? ''} />
 				</div>
 			</label>
 
