@@ -30,10 +30,6 @@
 	}
 </script>
 
-<div class="absolute right-5 top-5">
-	<LightSwitch />
-</div>
-
 <div class="container mx-auto max-w-lg py-6 px-12 variant-soft-surface">
 	<h1 class="my-6">
 		<strong class="font-extrabold">Forlang mindre</strong>
@@ -109,8 +105,9 @@
 	{/if}
 </div>
 
-<div class="relative">
-	<div class="absolute right-5 bottom-5">
+<div class="py-6">
+	<div class="lg:fixed right-5 bottom-5 flex gap-4 items-center justify-end">
+		<LightSwitch />
 		<a type="button" class="btn btn-sm variant-filled" href="https://github.com/rasben/forlang/">
 			<iconify-icon icon="fa6-brands:github" />
 			<span>GitHub</span>
