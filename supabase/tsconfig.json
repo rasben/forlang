@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"lib": ["es6", "dom"],
-		"skipLibCheck": true,
-		"allowImportingTsExtensions": true
+		"skipLibCheck": true
 	}
 }

@@ -1,5 +1,5 @@
-<script>
-	import { enhance } from '$app/forms';
+<script lang="ts">
+	import { enhance, type SubmitFunction } from '$app/forms';
 
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { ProgressBar } from '@skeletonlabs/skeleton';
@@ -15,19 +15,14 @@
 
 	let loading = false;
 
-	async function handleSubmit(event) {
-		event.preventDefault();
+	const handleSubmit: SubmitFunction = () => {
 		loading = true;
 
-		const formData = new FormData(event.target);
-
-		await fetch('/', {
-			method: 'POST',
-			body: formData
-		});
-
-		loading = false;
-	}
+		return async ({ update }) => {
+			update();
+			loading = false;
+		};
+	};
 </script>
 
 <div class="container mx-auto max-w-lg py-6 px-12 variant-soft-surface">
@@ -36,7 +31,7 @@
 		<span class="font-normal">af for lange websites</span>
 	</h1>
 
-	<form method="POST" class="my-6" use:enhance on:submit|preventDefault={handleSubmit}>
+	<form method="POST" class="my-6" use:enhance={handleSubmit}>
 		<div class=" grid grid-cols-1 gap-4">
 			<label class="label">
 				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
@@ -52,7 +47,13 @@
 					<div class="input-group-shim">
 						<iconify-icon icon="heroicons:key-solid" />
 					</div>
-					<input type="text" name="secret" placeholder="Kodeord" value={form?.secret ?? ''} />
+					<input
+						type="text"
+						name="secret"
+						placeholder="Kodeord"
+						value={form?.secret ?? ''}
+						required
+					/>
 				</div>
 			</label>
 
@@ -69,7 +70,7 @@
 		<ProgressBar value={undefined} />
 	{/if}
 
-	{#if form?.fail_reason}
+	{#if form?.success === false}
 		<aside class="alert my-6 variant-filled">
 			<div>😭</div>
 
@@ -90,14 +91,14 @@
 			</header>
 			<section class="m-6">
 				{@html form?.content
-					.split(/\. (?=[A-Z])/)
+					?.split(/\. (?=[A-Z])/)
 					.map((p, i, arr) => `<p class="mb-2">${p}${i === arr.length - 1 ? '' : '.'}</p>`)
 					.join('')}
 
 				<hr class="opacity-50" />
 			</section>
 			<footer class="m-6">
-				<a class="btn variant-ghost btn-sm" href={form?.pageContent.url}>
+				<a class="btn variant-ghost btn-sm" href={form?.pageContent?.url.toString()}>
 					Læs den fulde artikel ({form?.pageContent?.length} tegn)
 				</a>
 			</footer>

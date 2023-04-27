@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-import { ResponsePayload as SupabaseResponse } from '../../supabase/functions/shared.ts';
+import type { ResponsePayload as SupabaseResponse } from '../../supabase/functions/shared';
 
 import { SUPABASE_URL, SUPABASE_ANON_KEY, FORM_SECRET } from '$env/static/private';
 
